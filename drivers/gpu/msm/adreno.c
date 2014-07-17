@@ -2742,6 +2742,8 @@ static int adreno_soft_reset(struct kgsl_device *device)
 	kgsl_pwrctrl_irq(device, KGSL_PWRFLAGS_OFF);
 
 	adreno_clear_gpu_fault(adreno_dev);
+	/* since device is oficially off now clear start bit */
+	clear_bit(ADRENO_DEVICE_STARTED, &adreno_dev->priv);
 
 	/* Delete the idle timer */
 	del_timer_sync(&device->idle_timer);
@@ -2785,6 +2787,7 @@ static int adreno_soft_reset(struct kgsl_device *device)
 		return ret;
 
 	device->reset_counter++;
+	set_bit(ADRENO_DEVICE_STARTED, &adreno_dev->priv);
 
 	return 0;
 }
