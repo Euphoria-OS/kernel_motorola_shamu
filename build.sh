@@ -75,7 +75,7 @@ echo "Making hC Kernel:"
 echo "-----------------"
 echo -e "${restore}"
 
-while read -p "Please choose your option: [1]clean-build / [2]dirty-build / [3]abort " cchoice
+while read -p "Please choose your option: [1]clean-build / [2]dirty-build / [3]zip-only / [4]abort " cchoice
 do
 case "$cchoice" in
 	1 )
@@ -127,6 +127,21 @@ case "$cchoice" in
 		break
 		;;
 	3 )
+		echo -e "${green}"
+		echo
+		echo "[....Make `echo $HC_VER`.zip....]"
+		echo
+		echo -e "${restore}"
+		make_zip
+		echo -e "${green}"
+		echo
+		echo "[.....Moving `echo $HC_VER`.....]"
+		echo
+		echo -e "${restore}"
+		copy_dropbox
+		break
+		;;
+	4 )
 		break
 		;;
 	* )
